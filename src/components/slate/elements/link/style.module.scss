@@ -1,0 +1,35 @@
+.slate-link {
+  text-decoration: underline;
+}
+
+.slate-link-overlay {
+  :global {
+    .ant-popover-inner-content {
+      padding: 4px 5px;
+      .slate-link-pop {
+        display: flex;
+        justify-content: center;
+        .divider {
+          width: 1px;
+          margin: 0 5px;
+          background-color: rgb(235, 236, 240);
+        }
+      }
+    }
+  }
+}
+
+.slate-link-tooltip-overlay {
+  :global {
+    .ant-tooltip-inner {
+      min-width: 0;
+      min-height: 0;
+      padding: 2px 5px;
+      font-size: 10px;
+    }
+  }
+}
+
+.slate-link-button-active {
+  color: red !important;
+}

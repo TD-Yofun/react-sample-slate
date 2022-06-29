@@ -1,0 +1,13 @@
+.slate-input {
+  padding: 10px;
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  transition-property: border-color;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
+  min-height: 150px;
+  overflow: hidden;
+  &.is-focus {
+    border-color: skyblue;
+  }
+}

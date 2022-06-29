@@ -1,0 +1,8 @@
+.slate-toolbar {
+  display: flex;
+  :global {
+    button{
+      margin-right: 5px;
+    }
+  }
+}
