@@ -1,0 +1,10 @@
+.slate-tooltip {
+  :global {
+    .ant-tooltip-inner {
+      min-width: 0;
+      min-height: 0;
+      padding: 2px 5px;
+      font-size: 10px;
+    }
+  }
+}

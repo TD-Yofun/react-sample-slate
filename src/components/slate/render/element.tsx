@@ -3,8 +3,11 @@ import { RenderElementProps } from "slate-react";
 
 // element
 import Paragraph from "../elements/paragraph";
-import { Link } from "../elements/link";
-import { Heading } from "../elements/heading";
+import Link from "../elements/link";
+import Heading from "../elements/heading";
+import ListOrder from "../elements/list-order";
+import ListUnorder from "../elements/list-unorder";
+import ListItem from "../elements/list-item";
 
 import { ElementType } from "../types";
 
@@ -18,6 +21,12 @@ const Element: React.FC<ElementProps> = (props) => {
       return <Link {...props} />;
     case ElementType.HEADING:
       return <Heading {...props} />;
+    case ElementType.LIST_ITEM:
+      return <ListItem {...props} />;
+    case ElementType.LIST_ORDER:
+      return <ListOrder {...props} />;
+    case ElementType.LIST_UNORDER:
+      return <ListUnorder {...props} />;
     default:
       return <Paragraph {...props} />;
   }

@@ -2,6 +2,9 @@ export enum ElementType {
   PARAGRAPH = "PARAGRAPH",
   LINK = "LINK",
   HEADING = "HEADING",
+  LIST_ORDER = "LIST_ORDER",
+  LIST_UNORDER = "LIST_UNORDER",
+  LIST_ITEM = "HEADING",
 }
 
 export type ParagraphElement = {
@@ -20,6 +23,10 @@ export type LinkElement = {
   href?: string;
   children: CustomText[];
 };
+
+// export type ListElement = {
+//   type: 
+// }
 
 export type CustomElement = ParagraphElement | HeadingElement | LinkElement;
 
