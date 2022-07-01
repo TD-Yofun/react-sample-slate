@@ -19,7 +19,12 @@ const Element: React.FC<ElementProps> = (props) => {
   switch (elementType) {
     case ElementType.LINK:
       return <Link {...props} />;
-    case ElementType.HEADING:
+    case ElementType.HEADING_ONE:
+    case ElementType.HEADING_TWO:
+    case ElementType.HEADING_THREE:
+    case ElementType.HEADING_FOUR:
+    case ElementType.HEADING_FIVE:
+    case ElementType.HEADING_SIX:
       return <Heading {...props} />;
     case ElementType.LIST_ITEM:
       return <ListItem {...props} />;

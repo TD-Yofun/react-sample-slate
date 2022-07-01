@@ -1,8 +1,12 @@
 .slate-toolbar {
   display: flex;
   :global {
-    button{
+    button {
       margin-right: 5px;
+      &.is-active {
+        color: #fff;
+        background-color: #253858;
+      }
     }
   }
 }

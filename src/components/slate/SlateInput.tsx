@@ -1,7 +1,13 @@
 import React, { useMemo, useState, useCallback, useEffect } from "react";
 import classNames from "classnames";
 import { createEditor, Descendant } from "slate";
-import { Slate, Editable, withReact, RenderElementProps } from "slate-react";
+import {
+  Slate,
+  Editable,
+  withReact,
+  RenderElementProps,
+  RenderLeafProps,
+} from "slate-react";
 import { withHistory } from "slate-history";
 
 // toolbar
@@ -11,7 +17,7 @@ import { Toolbar } from "./toolbar";
 import withLinks from "./plugins/withLinks";
 
 // render
-import { Element } from "./render";
+import { Element, Leaf } from "./render";
 
 // type
 import { ElementType } from "./types";
@@ -33,12 +39,12 @@ const SlateInput: React.FC<SlateInputProps> = () => {
       href: "https://www.baidu.com",
       children: [{ text: "我是百度地址" }],
     },
-    { type: ElementType.HEADING, level: 1, children: [{ text: "我是标题1" }] },
-    { type: ElementType.HEADING, level: 2, children: [{ text: "我是标题2" }] },
-    { type: ElementType.HEADING, level: 3, children: [{ text: "我是标题3" }] },
-    { type: ElementType.HEADING, level: 4, children: [{ text: "我是标题4" }] },
-    { type: ElementType.HEADING, level: 5, children: [{ text: "我是标题5" }] },
-    { type: ElementType.HEADING, level: 6, children: [{ text: "我是标题6" }] },
+    { type: ElementType.HEADING_ONE, children: [{ text: "我是标题1" }] },
+    { type: ElementType.HEADING_TWO, children: [{ text: "我是标题2" }] },
+    { type: ElementType.HEADING_THREE, children: [{ text: "我是标题3" }] },
+    { type: ElementType.HEADING_FOUR, children: [{ text: "我是标题4" }] },
+    { type: ElementType.HEADING_FIVE, children: [{ text: "我是标题5" }] },
+    { type: ElementType.HEADING_SIX, children: [{ text: "我是标题6" }] },
   ]);
 
   const editor = useMemo(
@@ -51,9 +57,14 @@ const SlateInput: React.FC<SlateInputProps> = () => {
     []
   );
 
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
+  const renderLeaf = useCallback(
+    (props: RenderLeafProps) => <Leaf {...props} />,
+    []
+  );
+
+  // useEffect(() => {
+  //   console.log(value);
+  // }, [value]);
 
   return (
     <Slate
@@ -61,7 +72,7 @@ const SlateInput: React.FC<SlateInputProps> = () => {
       value={value}
       onChange={(newValue) => setValue(newValue)}
     >
-      <Toolbar style={{marginBottom: '10px'}}/>
+      <Toolbar style={{ marginBottom: "10px" }} />
       <Editable
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
@@ -70,6 +81,7 @@ const SlateInput: React.FC<SlateInputProps> = () => {
           "is-focus": focus,
         })}
         renderElement={renderElement}
+        renderLeaf={renderLeaf}
       />
     </Slate>
   );

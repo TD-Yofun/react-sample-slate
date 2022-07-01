@@ -26,9 +26,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ className, style }) => {
       style={style}
     >
       <HeadingButton editor={editor} />
-      <StyleButton />
+      <StyleButton editor={editor} />
+      <CodeButton editor={editor} />
       <AlignButton editor={editor} />
-      <CodeButton />
       <ListButton editor={editor} />
       <LinkButton editor={editor} />
     </div>

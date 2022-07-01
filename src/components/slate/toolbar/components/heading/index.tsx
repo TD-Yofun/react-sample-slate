@@ -8,65 +8,44 @@ import SlateTooltip from "../../../components/tooltip";
 
 import styles from "./style.module.scss";
 import { ElementType, HeadingElement } from "../../../types";
+import { isBlockActive, toggleBlock } from "../../../utils";
 
 interface HeadingButtonProps {
   editor: Editor;
 }
 
 const headingConfig = {
-  [`${ElementType.HEADING}-1`]: `标题 1`,
-  [`${ElementType.HEADING}-2`]: `标题 2`,
-  [`${ElementType.HEADING}-3`]: `标题 3`,
-  [`${ElementType.HEADING}-4`]: `标题 4`,
-  [`${ElementType.HEADING}-5`]: `标题 5`,
-  [`${ElementType.HEADING}-6`]: `标题 6`,
+  [`${ElementType.HEADING_ONE}`]: `标题 1`,
+  [`${ElementType.HEADING_TWO}`]: `标题 2`,
+  [`${ElementType.HEADING_THREE}`]: `标题 3`,
+  [`${ElementType.HEADING_FOUR}`]: `标题 4`,
+  [`${ElementType.HEADING_FIVE}`]: `标题 5`,
+  [`${ElementType.HEADING_SIX}`]: `标题 6`,
   [`${ElementType.PARAGRAPH}`]: `普通文本`,
 };
 
-const isBlockActive = (
-  editor: Editor,
-  format: ElementType,
-  level?: HeadingElement["level"]
-) => {
-  const [match] = Editor.nodes(editor, {
-    match: (n) => {
-      if (level) {
-        return (
-          !Editor.isEditor(n) &&
-          SlateElement.isElement(n) &&
-          n.type === format &&
-          // @ts-ignore
-          n.level === level
-        );
-      }
-      return (
-        !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format
-      );
-    },
-  });
-  return !!match;
-};
-
 const HeadingButton: React.FC<HeadingButtonProps> = ({ editor }) => {
-  const handleClickMenu = (
-    format: ElementType,
-    level?: HeadingElement["level"]
-  ) => {};
+  const handleClickMenu = useCallback(
+    (format: ElementType) => {
+      toggleBlock(editor, format);
+    },
+    [editor]
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCurrentKey = () => {
-    if (isBlockActive(editor, ElementType.HEADING, 1)) {
-      return `${ElementType.HEADING}-1`;
-    } else if (isBlockActive(editor, ElementType.HEADING, 2)) {
-      return `${ElementType.HEADING}-2`;
-    } else if (isBlockActive(editor, ElementType.HEADING, 3)) {
-      return `${ElementType.HEADING}-3`;
-    } else if (isBlockActive(editor, ElementType.HEADING, 4)) {
-      return `${ElementType.HEADING}-4`;
-    } else if (isBlockActive(editor, ElementType.HEADING, 5)) {
-      return `${ElementType.HEADING}-5`;
-    } else if (isBlockActive(editor, ElementType.HEADING, 6)) {
-      return `${ElementType.HEADING}-6`;
+    if (isBlockActive(editor, ElementType.HEADING_ONE)) {
+      return `${ElementType.HEADING_ONE}`;
+    } else if (isBlockActive(editor, ElementType.HEADING_TWO)) {
+      return `${ElementType.HEADING_TWO}`;
+    } else if (isBlockActive(editor, ElementType.HEADING_THREE)) {
+      return `${ElementType.HEADING_THREE}`;
+    } else if (isBlockActive(editor, ElementType.HEADING_FOUR)) {
+      return `${ElementType.HEADING_FOUR}`;
+    } else if (isBlockActive(editor, ElementType.HEADING_FIVE)) {
+      return `${ElementType.HEADING_FIVE}`;
+    } else if (isBlockActive(editor, ElementType.HEADING_SIX)) {
+      return `${ElementType.HEADING_SIX}`;
     } else {
       return `${ElementType.PARAGRAPH}`;
     }
@@ -74,61 +53,84 @@ const HeadingButton: React.FC<HeadingButtonProps> = ({ editor }) => {
 
   const menu = useMemo(
     () => (
-      <Menu
-        className={styles["dropdown-content"]}
-        activeKey={getCurrentKey()}
-      >
+      <Menu className={styles["dropdown-content"]} activeKey={getCurrentKey()}>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.HEADING, 1)}
-          key={`${ElementType.HEADING}-1`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.HEADING_ONE);
+          }}
+          key={`${ElementType.HEADING_ONE}`}
         >
-          <h1>{headingConfig[`${ElementType.HEADING}-1`]}</h1>
+          <h1>{headingConfig[`${ElementType.HEADING_ONE}`]}</h1>
         </Menu.Item>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.HEADING, 2)}
-          key={`${ElementType.HEADING}-2`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.HEADING_TWO);
+          }}
+          key={`${ElementType.HEADING_TWO}`}
         >
-          <h2>{headingConfig[`${ElementType.HEADING}-2`]}</h2>
+          <h2>{headingConfig[`${ElementType.HEADING_TWO}`]}</h2>
         </Menu.Item>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.HEADING, 3)}
-          key={`${ElementType.HEADING}-3`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.HEADING_THREE);
+          }}
+          key={`${ElementType.HEADING_THREE}`}
         >
-          <h3>{headingConfig[`${ElementType.HEADING}-3`]}</h3>
+          <h3>{headingConfig[`${ElementType.HEADING_THREE}`]}</h3>
         </Menu.Item>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.HEADING, 4)}
-          key={`${ElementType.HEADING}-4`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.HEADING_FOUR);
+          }}
+          key={`${ElementType.HEADING_FOUR}`}
         >
-          <h4>{headingConfig[`${ElementType.HEADING}-4`]}</h4>
+          <h4>{headingConfig[`${ElementType.HEADING_FOUR}`]}</h4>
         </Menu.Item>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.HEADING, 5)}
-          key={`${ElementType.HEADING}-5`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.HEADING_FIVE);
+          }}
+          key={`${ElementType.HEADING_FIVE}`}
         >
-          <h5>{headingConfig[`${ElementType.HEADING}-5`]}</h5>
+          <h5>{headingConfig[`${ElementType.HEADING_FIVE}`]}</h5>
         </Menu.Item>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.HEADING, 6)}
-          key={`${ElementType.HEADING}-6`}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.HEADING_SIX);
+          }}
+          key={`${ElementType.HEADING_SIX}`}
         >
-          <h6>{headingConfig[`${ElementType.HEADING}-6`]}</h6>
+          <h6>{headingConfig[`${ElementType.HEADING_SIX}`]}</h6>
         </Menu.Item>
         <Menu.Item
-          onClick={() => handleClickMenu(ElementType.PARAGRAPH)}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            handleClickMenu(ElementType.PARAGRAPH);
+          }}
           key={`${ElementType.PARAGRAPH}`}
         >
           {headingConfig[`${ElementType.PARAGRAPH}`]}
         </Menu.Item>
       </Menu>
     ),
-    [getCurrentKey]
+    [getCurrentKey, handleClickMenu]
   );
 
   return (
     <SlateTooltip title="文本样式">
       <Dropdown overlay={menu} trigger={["click"]}>
-        <Button size="small" type="text" style={{width: '100px'}}>
+        <Button
+          size="small"
+          type="text"
+          style={{ width: "100px" }}
+          onMouseDown={(e) => e.preventDefault()}
+        >
           {headingConfig[getCurrentKey()]}
           <DownOutlined />
         </Button>
